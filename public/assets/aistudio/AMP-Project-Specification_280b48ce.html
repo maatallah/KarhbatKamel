@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auto Music Player (AMP) - Project Specification Blueprint</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 40px; background-color: #f9f9f9; }
+    h1, h2, h3 { color: #1a365d; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
+    h1 { font-size: 2.2em; text-align: center; margin-bottom: 30px; }
+    h2 { font-size: 1.6em; margin-top: 40px; }
+    h3 { font-size: 1.2em; margin-top: 20px; }
+    code, pre { font-family: 'Consolas', Courier, monospace; background-color: #edf2f7; color: #2d3748; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    pre { padding: 15px; overflow-x: auto; border-left: 4px solid #3182ce; display: block; white-space: pre-wrap; }
+    .feature-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .important { background-color: #fffaf0; border-left: 4px solid #dd6b20; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+    th, td { border: 1px solid #cbd5e0; padding: 12px; text-align: left; }
+    th { background-color: #ebf8ff; color: #2c5282; }
+    .footer { text-align: center; margin-top: 50px; font-size: 0.85em; color: #718096; }
+</style>
+</head>
+<body>
+
+<h1>Auto Music Player (AMP)<br><small>Project Specification & Complete Architectural Blueprint</small></h1>
+
+<div class="important">
+    <strong>INSTRUCTION FOR GOOGLE AI STUDIO:</strong> This document serves as a complete contextual and functional specification framework for <em>Auto Music Player (AMP)</em>, an advanced Android automotive-focused background media application built over React Native. Implement a full, high-fidelity codebase solving all platform lifecycles, service startups, runtime edge-cases, and strict operating system configurations detailed below.
+</div>
+
+<h2>1. Project Context & Environment Architecture</h2>
+<p>The project is an automotive-optimized music player built using <strong>React Native</strong> with a robust native Android Java/Kotlin engineering layer. The app must execute heavy audio asset handling and platform tracking reliably on mid-tier hardware (e.g., <code>SM-A107F</code> running Android 11, API Level 30).</p>
+
+<h3>Current Core Stack</h3>
+<ul>
+    <li><strong>React Native:</strong> Modern Architecture (Bridgeless / TurboModules enabled by default).</li>
+    <li><strong>Build Tool:</strong> Gradle 9.4.1.</li>
+    <li><strong>Execution SDK:</strong> Compile/Target Android SDK 34.0.0.</li>
+    <li><strong>Native Layer Runtime Requirements:</strong> Extreme startup stability requiring strict explicit synchronization hooks for dependencies like <code>SoLoader</code> before React Native assets load.</li>
+</ul>
+
+<div class="important">
+    <strong>Critical OS Constraint solved:</strong> STANDALONE APK Lifecycles run faster than continuous debug wrappers. C++ JNI layout bridges require <code>SoLoader.init()</code> execution immediately inside the classloading routine via <code>attachBaseContext(base: Context?)</code> within the root <code>Application</code> wrapper class before static feature configuration mapping runs, avoiding unhandled <code>ExceptionInInitializerError</code> loops.
+</div>
+
+<h2>2. Complete App Features Matrix</h2>
+
+<div class="feature-card">
+    <h3>🚗 Feature 1: Foreground Playback Service & Notification Channel</h3>
+    <p><strong>Description:</strong> Continuous high-fidelity background audio execution managed by a robust persistent system component.</p>
+    <ul>
+        <li><strong>Native Requirements:</strong> Immediate initialization of <code>NotificationChannel</code> structure and invoking <code>startForeground(1, notification)</code> as the absolute first statements inside <code>PlaybackService.onCreate()</code> to prevent Android's strict background service startup crash loop.</li>
+        <li><strong>Media Integration:</strong> Full implementation of <code>MediaLibrarySession</code> / <code>MediaSession</code> to expose library assets to bluetooth accessories and connected vehicle infotainment frameworks.</li>
+    </ul>
+</div>
+
+<div class="feature-card">
+    <h3>🔊 Feature 2: Speed-Dependent Volume Scaling (SDVS)</h3>
+    <p><strong>Description:</strong> Real-time automated audio output normalization dynamically reacting to physical automotive metrics to combat vehicle road/wind noise.</p>
+    <ul>
+        <li><strong>Implementation Engine:</strong> Real-time background data fetching from native <code>LocationManager</code> or location hardware endpoints using an implicit location tracking event loop.</li>
+        <li><strong>Logic Algorithm:</strong> Math configuration computing smooth exponential or linear stepping scaling values adjusting system output gain streams corresponding to target speed metrics.</li>
+    </ul>
+</div>
+
+<div class="feature-card">
+    <h3>⚡ Feature 3: Ignition Power State Broadcast Receiver</h3>
+    <p><strong>Description:</strong> Automated hardware integration tracking the operational status of the host vehicle.</p>
+    <ul>
+        <li><strong>Functional Logic:</strong> Catching system power connection intents (e.g., <code>ACTION_POWER_CONNECTED</code> / <code>ACTION_POWER_DISCONNECTED</code>) mirroring vehicle ignition profiles to gracefully execute automated <code>play()</code> triggers on power-up and <code>pause()</code> on engine cutoff.</li>
+    </ul>
+</div>
+
+<div class="feature-card">
+    <h3>📊 Feature 4: Telemetry Statistics Tracking</h3>
+    <p><strong>Description:</strong> Offline storage and data collection mapping runtime playback diagnostics.</p>
+    <ul>
+        <li><strong>Data Elements:</strong> Aggregating usage statistics including track durations, crash boundaries, error parameters, and hardware initialization performance.</li>
+        <li><strong>Storage System:</strong> High-performance async local store caching data points securely while offline.</li>
+    </ul>
+</div>
+
+<div class="feature-card">
+    <h3>🌐 Feature 5: Multi-Language & RTL Arabic Interface</h3>
+    <p><strong>Description:</strong> Deep locale formatting supporting right-to-left directional layouts natively.</p>
+    <ul>
+        <li><strong>UI Layout Rules:</strong> Flexbox mirroring patterns across all UI subviews to seamlessly re-orient sliders, track titles, and navigation structures dynamically according to RTL Arabic configurations.</li>
+    </ul>
+</div>
+
+<div class="feature-card">
+    <h3>📦 Feature 6: Offline Asset Packaging & Media Browsing</h3>
+    <p><strong>Description:</strong> Resilient native file discovery layer for standalone playback files.</p>
+    <ul>
+        <li><strong>Implementation:</strong> Deep multi-threaded cataloging scanning sandboxed system structures or physical external memory components for packaged high-definition audio assets.</li>
+    </ul>
+</div>
+
+<h2>3. Core Implementation Blueprints (Code Snippets)</h2>
+
+<h3>A. Root Application Initialization Block</h3>
+<p>File location path: <code>android/app/src/main/java/com/automusicplayer/MainApplication.kt</code></p>
+<pre>
+package com.automusicplayer
+
+import android.app.Application
+import android.content.Context
+import com.facebook.react.ReactApplication
+import com.facebook.soloader.SoLoader
+
+class MainApplication : Application(), ReactApplication {
+
+    override fun attachBaseContext(base: Context?) {
+        // Enforce immediate execution before Bridgeless C++ modules load static flags
+        SoLoader.init(base, com.facebook.react.common.build.MergedSoMapping.openSourceMergedSoMapping)
+        super.attachBaseContext(base)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        // Standard React Native Host initialization follows...
+    }
+}
+</pre>
+
+<h3>B. Foreground Playback Lifecycle Execution</h3>
+<p>File location path: <code>android/app/src/main/java/com/automusicplayer/media/PlaybackService.kt</code></p>
+<pre>
+package com.automusicplayer.media
+
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.Service
+import android.content.Intent
+import android.os.Build
+import android.os.IBinder
+import androidx.core.app.NotificationCompat
+
+class PlaybackService : Service() {
+
+    private val CHANNEL_ID = "amp_playback_channel"
+
+    override fun onCreate() {
+        // Strict Enforcement: Initialize foreground assets at the absolute start of onCreate()
+        createNotificationChannel()
+        val notification = createNotification("Initializing Playback Engine...")
+        startForeground(1, notification)
+        
+        super.onCreate()
+        // Proceed with MediaLibrarySession binding...
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID, "Audio Playback Service",
+                NotificationManager.IMPORTANCE_LOW
+            )
+            val manager = getSystemService(NotificationManager::class.java)
+            manager?.createNotificationChannel(channel)
+        }
+    }
+
+    private fun createNotification(contentText: String): Notification {
+        return NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle("Auto Music Player")
+            .setContentText(contentText)
+            .setSmallIcon(android.R.drawable.ic_media_play)
+            .build()
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? = null
+}
+</pre>
+
+<h2>4. Operational Engineering Guidelines</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Module Pillar</th>
+            <th>Requirement Specification Mapping</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Lifecycle State Boundaries</strong></td>
+            <td>Background tasks must catch unexpected system kills cleanly using thread-safe state handlers. All storage write sequences must invoke immediate safe file system flushes.</td>
+        </tr>
+        <tr>
+            <td><strong>JNI & Native Bridge Mapping</strong></td>
+            <td>Ensure all shared object layout handles (<code>.so</code> code engines) map safely into the modern React Native architecture layer under explicit C++ JNI bridge bindings.</td>
+        </tr>
+        <tr>
+            <td><strong>RTL Component Mirroring</strong></td>
+            <td>Do not rely on hardcoded horizontal spacing boundaries. UI slider elements and metadata groupings must mirror positions cleanly matching the system localization parameter.</td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="footer">This is for informational purposes only. For medical advice or diagnosis, consult a professional. AI responses may include mistakes.</p>
+
+</body>
+</html>

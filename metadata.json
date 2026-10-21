@@ -1,0 +1,10 @@
+{
+  "name": "Remix Auto Music Player (AMP)",
+  "description": "Automotive-optimized background audio player with Speed-Dependent Volume Scaling (SDVS), ignition power state tracking, RTL Arabic support, and offline telemetry.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
